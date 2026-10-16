@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Orbit: Habit Tracker</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;800&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body class="dashboard">
+<main id="app">
+  <header class="app-header">
+    <div>
+      <h1>Orbit</h1>
+      <p class="sub" id="sub"></p>
+    </div>
+    <button class="text-btn" id="change-profile" type="button">Change profile</button>
+  </header>
+  <nav class="quick-nav" aria-label="Dashboard sections">
+    <a href="#today">Today</a>
+    <a href="#goals">Goals</a>
+    <a href="#weekly-review">Review</a>
+    <a href="#focus-session">Focus</a>
+    <a href="#progress">Progress</a>
+    <a href="#reminders">Reminders</a>
+  </nav>
+  <section class="today-section" id="today" aria-labelledby="today-title">
+    <div class="section-heading">
+      <div>
+        <p class="section-kicker">YOUR DAILY ORBIT</p>
+        <h2 id="today-title">Today</h2>
+      </div>
+      <p class="today-date" id="today-date"></p>
+    </div>
+    <section class="study-list" aria-labelledby="study-list-title">
+      <div class="study-list-heading">
+        <div>
+          <p class="section-kicker">MAKE ROOM FOR WHAT MATTERS</p>
+          <h3 id="study-list-title">Today's study list</h3>
+        </div>
+        <span id="task-count" aria-live="polite"></span>
+      </div>
+      <p class="task-plan-summary" id="task-plan-summary" aria-live="polite"></p>
+      <div class="task-reminder-settings">
+        <div>
+          <strong>End-of-day nudge · 11:00 PM</strong>
+          <p id="task-reminder-status" aria-live="polite">Reminder off. Turn it on for a gentle nudge if tasks are still unfinished.</p>
+        </div>
+        <button class="secondary-btn" id="task-reminder-toggle" type="button">Enable reminder</button>
+      </div>
+      <form class="task-form" id="task-form">
+        <label class="sr-only" for="task-input">Assignment or task</label>
+        <input id="task-input" maxlength="120" placeholder="e.g. Finish biology lab report" required>
+        <label class="task-meta-field" for="task-priority">Priority
+          <select id="task-priority">
+            <option value="high">High</option>
+            <option value="medium" selected>Medium</option>
+            <option value="low">Low</option>
+          </select>
+        </label>
+        <label class="task-meta-field" for="task-estimate">Estimate
+          <span class="task-estimate-input"><input id="task-estimate" type="number" min="1" max="720" value="30" required><span>min</span></span>
+        </label>
+        <label class="task-time-field" for="task-date">Plan for
+          <input id="task-date" type="date" required>
+        </label>
+        <label class="task-time-field" for="task-time">Due time <span>(optional)</span>
+          <input id="task-time" type="time">
+        </label>
+        <label class="task-time-field task-goal-field" for="task-milestone">Linked milestone <span>(optional)</span>
+          <select id="task-milestone">
+            <option value="">No milestone</option>
+          </select>
+        </label>
+        <button class="addbtn" type="submit">Add task</button>
+      </form>
+      <p class="task-status" id="task-status" aria-live="polite"></p>
+      <ul class="task-list" id="task-list" aria-label="Tasks for today"></ul>
+      <section class="weekly-planner" aria-labelledby="weekly-planner-title">
+        <div class="weekly-planner-heading">
+          <div>
+            <p class="section-kicker">PLAN AHEAD, ONE DAY AT A TIME</p>
+            <h3 id="weekly-planner-title">Weekly study planner</h3>
+            <p class="weekly-planner-summary" id="weekly-planner-summary" aria-live="polite"></p>
+          </div>
+          <div class="week-navigation" aria-label="Choose a week">
+            <button class="secondary-btn" id="week-previous" type="button" aria-label="Previous week">‹</button>
+            <span id="week-range" aria-live="polite"></span>
+            <button class="secondary-btn" id="week-next" type="button" aria-label="Next week">›</button>
+          </div>
+        </div>
+        <div class="week-days" id="week-days" aria-label="Tasks by day"></div>
+      </section>
+    </section>
+    <section class="goals-section" id="goals" aria-labelledby="goals-title">
+      <div class="goals-heading">
+        <div>
+          <p class="section-kicker">SMALL STEPS TOWARD BIG THINGS</p>
+          <h2 id="goals-title">Goals &amp; milestones</h2>
+          <p class="goals-intro">Turn an important aim into manageable steps, then connect study tasks to each milestone.</p>
+        </div>
+        <span class="goals-count" id="goals-count" aria-live="polite"></span>
+      </div>
+      <form class="goal-form" id="goal-form">
+        <label for="goal-title">Your goal
+          <input id="goal-title" maxlength="120" placeholder="e.g. Prepare for my biology exam" required>
+        </label>
+        <label for="goal-date">Target date
+          <input id="goal-date" type="date" required>
+        </label>
+        <button class="addbtn" type="submit">Add goal</button>
+      </form>
+      <p class="goal-status" id="goal-status" aria-live="polite"></p>
+      <div class="goal-list" id="goal-list" aria-label="Your goals"></div>
+    </section>
+    <section class="focus-section" id="focus-session" aria-labelledby="focus-title">
+      <div class="focus-heading">
+        <div>
+          <p class="section-kicker">ONE THING AT A TIME</p>
+          <h3 id="focus-title">Focus session</h3>
+        </div>
+        <span class="focus-sessions" id="focus-sessions" aria-live="polite">0 sessions today</span>
+      </div>
+      <label class="focus-task-field" for="focus-task">
+        Focus on
+        <select id="focus-task">
+          <option value="">Choose a task or focus freely</option>
+        </select>
+      </label>
+      <div class="focus-clock" aria-live="off">
+        <span class="focus-phase" id="focus-phase">FOCUS</span>
+        <time id="focus-countdown">25:00</time>
+      </div>
+      <p class="focus-status" id="focus-status" aria-live="polite">Choose a task and start one focused block.</p>
+      <div class="focus-settings">
+        <fieldset class="focus-duration-setting">
+          <legend>Focus length</legend>
+          <label for="focus-hours">Hours
+            <input id="focus-hours" type="number" min="0" max="12" value="0">
+          </label>
+          <label for="focus-minutes">Minutes
+            <input id="focus-minutes" type="number" min="0" max="59" value="25">
+          </label>
+        </fieldset>
+        <label for="break-minutes">Break minutes
+          <input id="break-minutes" type="number" min="1" max="60" value="5">
+        </label>
+      </div>
+      <div class="focus-actions">
+        <button class="addbtn" id="focus-toggle" type="button">Start focus</button>
+        <button class="secondary-btn" id="focus-break" type="button" hidden>Start break</button>
+        <button class="secondary-btn" id="focus-reset" type="button">Reset</button>
+      </div>
+    </section>
+    <div class="add">
+      <input id="in" placeholder="e.g. Read for 20 minutes" maxlength="60" aria-label="New habit name">
+      <button class="addbtn" id="addbtn" type="button">Add habit</button>
+    </div>
+    <section class="habit-section" aria-labelledby="habits-title">
+      <div class="list-heading">
+        <h3 id="habits-title">Your habits</h3>
+        <span id="habit-count" aria-live="polite"></span>
+      </div>
+      <div id="list"></div>
+    </section>
+  </section>
+  <section class="progress-section" id="progress" aria-labelledby="progress-title">
+    <div class="section-heading compact">
+      <div>
+        <p class="section-kicker">THE BIG PICTURE</p>
+        <h2 id="progress-title">Your progress</h2>
+      </div>
+    </div>
+    <section id="stats" aria-label="Progress"></section>
+  </section>
+  <section class="weekly-review" id="weekly-review" aria-labelledby="weekly-review-title">
+    <div class="weekly-review-heading">
+      <div>
+        <p class="section-kicker">NOTICE HOW FAR YOU'VE COME</p>
+        <h2 id="weekly-review-title">Weekly review</h2>
+        <p class="weekly-review-intro">A kind look back at your effort, plus a little space to choose what matters next.</p>
+      </div>
+      <div class="week-navigation review-navigation" aria-label="Choose a review week">
+        <button class="secondary-btn" id="review-previous" type="button" aria-label="Review previous week">‹</button>
+        <span id="review-range" aria-live="polite"></span>
+        <button class="secondary-btn" id="review-next" type="button" aria-label="Review next week">›</button>
+      </div>
+    </div>
+    <div class="review-summary" id="review-summary" aria-live="polite"></div>
+    <p class="review-history-note" id="review-history-note"></p>
+    <form class="review-form" id="review-form">
+      <label for="review-reflection">What are you proud of this week?
+        <textarea id="review-reflection" maxlength="600" rows="3" placeholder="A small win counts. What went well?"></textarea>
+      </label>
+      <label for="review-priorities">What would you like to focus on next week?
+        <textarea id="review-priorities" maxlength="600" rows="3" placeholder="Choose one or two priorities that feel manageable."></textarea>
+      </label>
+      <div class="review-save-row">
+        <p id="review-status" aria-live="polite"></p>
+        <button class="addbtn" type="submit">Save my review</button>
+      </div>
+    </form>
+  </section>
+  <section class="reminder-wrap" id="reminders" aria-labelledby="reminder-title">
+    <div class="reminder-heading">
+      <div>
+        <p class="section-kicker">A LITTLE NUDGE</p>
+        <h2 id="reminder-title">Daily reminder</h2>
+      </div>
+    </div>
+    <div class="reminder-bar">
+      <label class="reminder-field" for="reminder-time">
+        <span>Remind me at</span>
+        <input id="reminder-time" type="time" value="20:00" aria-label="Reminder time">
+      </label>
+      <button class="secondary-btn" id="reminder-toggle" type="button">Enable reminder</button>
+    </div>
+    <p class="reminder-status" id="reminder-status" aria-live="polite">Reminder off.</p>
+  </section>
+  <section class="backup-wrap" aria-labelledby="backup-title">
+    <div>
+      <p class="section-kicker">KEEP YOUR PROGRESS SAFE</p>
+      <h2 id="backup-title">Backup &amp; restore</h2>
+      <p class="backup-copy">Download your habits, goals, milestones, study plans, weekly reviews, focus history, and reminders as a file, or restore them from a previous backup.</p>
+    </div>
+    <div class="backup-actions">
+      <button class="secondary-btn" id="export-backup" type="button">Download backup</button>
+      <button class="secondary-btn" id="import-backup" type="button">Restore backup</button>
+      <input id="backup-file" type="file" accept=".json,application/json" hidden>
+    </div>
+    <p class="backup-status" id="backup-status" aria-live="polite"></p>
+  </section>
+  <div class="toast" id="reminder-toast" role="status" aria-live="polite"></div>
+  <div class="rename-overlay" id="rename-overlay" hidden>
+    <form class="rename-dialog" id="rename-form" role="dialog" aria-modal="true" aria-labelledby="rename-title">
+      <h2 id="rename-title">Rename habit</h2>
+      <label for="rename-input">Habit name</label>
+      <input id="rename-input" maxlength="60" required>
+      <div class="rename-actions">
+        <button class="secondary-btn" id="rename-cancel" type="button">Cancel</button>
+        <button class="addbtn" type="submit">Save name</button>
+      </div>
+    </form>
+  </div>
+  <div class="rename-overlay" id="note-overlay" hidden>
+    <form class="rename-dialog note-dialog" id="note-form" role="dialog" aria-modal="true" aria-labelledby="note-title">
+      <h2 id="note-title">Habit note</h2>
+      <label for="note-input">Quick note</label>
+      <textarea id="note-input" maxlength="240" rows="4" placeholder="What do you want to remember about this habit?"></textarea>
+      <div class="rename-actions">
+        <button class="secondary-btn" id="note-cancel" type="button">Cancel</button>
+        <button class="secondary-btn" id="note-clear" type="button">Clear</button>
+        <button class="addbtn" type="submit">Save note</button>
+      </div>
+    </form>
+  </div>
+  <div class="rename-overlay" id="schedule-overlay" hidden>
+    <form class="rename-dialog schedule-dialog" id="schedule-form" role="dialog" aria-modal="true" aria-labelledby="schedule-title">
+      <h2 id="schedule-title">Choose habit days</h2>
+      <p class="schedule-help">Your streak only counts check-ins on the days you choose.</p>
+      <div class="schedule-presets">
+        <button class="secondary-btn" type="button" data-preset="daily">Every day</button>
+        <button class="secondary-btn" type="button" data-preset="weekdays">Weekdays</button>
+      </div>
+      <fieldset class="day-options" aria-label="Choose days of the week">
+        <label><input type="checkbox" name="day" value="1"> Monday</label>
+        <label><input type="checkbox" name="day" value="2"> Tuesday</label>
+        <label><input type="checkbox" name="day" value="3"> Wednesday</label>
+        <label><input type="checkbox" name="day" value="4"> Thursday</label>
+        <label><input type="checkbox" name="day" value="5"> Friday</label>
+        <label><input type="checkbox" name="day" value="6"> Saturday</label>
+        <label><input type="checkbox" name="day" value="0"> Sunday</label>
+      </fieldset>
+      <p class="form-error" id="schedule-error" aria-live="polite"></p>
+      <div class="rename-actions">
+        <button class="secondary-btn" id="schedule-cancel" type="button">Cancel</button>
+        <button class="addbtn" type="submit">Save schedule</button>
+      </div>
+    </form>
+  </div>
+</main>
+<script src="script.js"></script>
+</body>
+</html>

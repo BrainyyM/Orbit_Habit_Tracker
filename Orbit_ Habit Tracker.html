@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Orbit: Get started</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;800&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body class="signin-page">
+  <div class="signin-overlay" id="signin-overlay">
+    <div class="signin-layout">
+      <section class="signin-scene" aria-label="An animated view of the Orbit habit tracker">
+        <div class="scene-copy">
+          <span class="scene-mark"><i></i> ORBIT / YOUR DAILY UNIVERSE</span>
+          <h1>Small steps.<br><span>Big change.</span></h1>
+          <p>Build habits that move you forward, one day at a time.</p>
+        </div>
+        <div class="planet-stage" aria-hidden="true">
+          <div class="planet-glow"></div>
+          <div class="orbit orbit-one"><i></i></div>
+          <div class="orbit orbit-two"><i></i></div>
+          <div class="orbit orbit-three"><i></i></div>
+          <div class="planet"><span></span></div>
+          <div class="scene-chip chip-streak"><b>07</b><span>DAY STREAK</span></div>
+          <div class="scene-chip chip-progress"><i></i><span>IN YOUR ORBIT</span><b>Consistency</b></div>
+        </div>
+        <div class="scene-footer"><span>01 — SHOW UP</span><span>02 — FIND YOUR RHYTHM</span><span>03 — KEEP GOING</span></div>
+      </section>
+
+      <section class="signin" role="dialog" aria-modal="true" aria-labelledby="signin-title">
+        <p class="eyebrow">Welcome to Orbit</p>
+        <h2 id="signin-title">Start your journey</h2>
+        <p class="signin-copy">Add your name to make your daily check-ins feel a little more personal.</p>
+
+        <form id="signin-form" novalidate>
+          <label for="user-name">What should we call you?</label>
+          <input id="user-name" name="name" type="text" maxlength="80" autocomplete="name" required>
+
+          <p class="form-error" id="form-error" aria-live="polite"></p>
+          <button class="primary-btn" type="submit">Let’s get started <span aria-hidden="true">↗</span></button>
+        </form>
+        <p class="signin-note"><span aria-hidden="true">✦</span> Your progress stays yours, saved on this device.</p>
+      </section>
+    </div>
+  </div>
+
+<script src="script.js"></script>
+</body>
+</html>
